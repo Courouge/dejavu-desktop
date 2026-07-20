@@ -16,10 +16,6 @@ Le menu Démarrer, avec recherche et applications épinglées :
 
 ![Menu Démarrer style Windows 11](docs/screenshots/shot7-kde-win11-menu.png)
 
-**Édition Lite (Openbox)** — la même promesse pour les vieux PC :
-
-![Édition Lite : Openbox + tint2, barre des tâches et fenêtres](docs/screenshots/shot2-windows.png)
-
 ## Deux éditions
 
 | Édition | Script | Base | Pour qui |
@@ -36,22 +32,37 @@ L'édition Familiale transforme Plasma en quasi-Windows 11 (recette validée sur
 - **mises à jour automatiques** : Discover (notifications façon Windows Update) + correctifs de sécurité sans intervention
 - **noms familiers** : Dolphin devient « Explorateur de fichiers », Konsole devient « Terminal »
 
-## Installation
+## Prérequis matériels
 
-Distributions supportées : **Debian 12+, Ubuntu 22.04+** (et dérivées).
+| | Édition Familiale (KDE) | Édition Lite (Openbox) |
+|---|---|---|
+| Processeur | 64 bits (x86_64), double cœur | 64 bits (x86_64) |
+| Mémoire (RAM) | 4 Go minimum, 8 Go confortable | 2 Go (~300 Mo utilisés au repos) |
+| Espace disque | 30 Go | 10 Go |
+| Autre | Connexion internet pendant l'installation | Connexion internet pendant l'installation |
 
-```bash
-git clone https://github.com/Courouge/dejavu-desktop.git
-cd dejavu-desktop
+Tout PC qui faisait tourner Windows 10 satisfait l'édition Lite ; la plupart des PC à partir de 2012 gèrent l'édition Familiale.
 
-# Édition Familiale (recommandée)
-./install-kde.sh
-# puis se déconnecter, choisir la session « Plasma (X11) », et relancer ./install-kde.sh
+## Installer from scratch (depuis un PC sous Windows)
 
-# OU Édition Lite (vieux PC)
-./install.sh
-# puis se déconnecter et choisir la session « Openbox »
-```
+1. **Sauvegardez vos fichiers** (clé USB ou cloud) — l'installation peut effacer le disque.
+2. **Téléchargez l'ISO d'Ubuntu 24.04 LTS** sur [ubuntu.com/download](https://ubuntu.com/download/desktop).
+3. **Créez une clé USB d'installation** (8 Go ou plus) avec [balenaEtcher](https://etcher.balena.io/) ou [Rufus](https://rufus.ie/) : choisir l'ISO, choisir la clé, écrire.
+4. **Démarrez le PC sur la clé** : redémarrez et pressez la touche du menu de démarrage (souvent `F12`, `F9`, `Échap` ou `F2` selon la marque), puis choisissez la clé USB.
+5. **Installez Ubuntu** : suivez l'assistant — langue, clavier, puis « Effacer le disque et installer Ubuntu » (ou installer à côté de Windows pour le conserver). Créez votre compte, laissez finir, redémarrez.
+6. **Installez DejaVu Desktop** : une fois sur le bureau Ubuntu, ouvrez un terminal (`Ctrl+Alt+T`) et tapez :
+
+   ```bash
+   sudo apt install -y git
+   git clone https://github.com/Courouge/dejavu-desktop.git
+   cd dejavu-desktop
+   ./install-kde.sh          # installe KDE, la bureautique, les mises à jour (10-20 min)
+   ```
+
+7. **Basculez sur la session Plasma** : déconnectez-vous, cliquez sur l'icône de session sur l'écran de connexion, choisissez **« Plasma (X11) »**, reconnectez-vous.
+8. **Appliquez l'habillage Windows** : relancez `./install-kde.sh` depuis la nouvelle session. Terminé — le bureau ressemble aux captures ci-dessus.
+
+Déjà sous Debian 12+/Ubuntu 22.04+ ? Passez directement à l'étape 6. Pour l'édition Lite sur un vieux PC : `./install.sh` puis session « Openbox ».
 
 ## Raccourcis clavier (identiques à Windows)
 
