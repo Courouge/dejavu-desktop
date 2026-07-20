@@ -10,11 +10,11 @@ A Linux desktop that looks and feels like Windows — familiar taskbar, Start me
 
 **Family Edition (KDE)** — a full Windows 11-style desktop:
 
-![DejaVu desktop: centered taskbar, Win11 icons, Bloom wallpaper](docs/screenshots/shot9-office-firefox.png)
+![DejaVu desktop: centered taskbar, Win11 icons, Bloom wallpaper](docs/screenshots/desktop.png)
 
 The Start menu, with search and pinned apps:
 
-![Windows 11-style Start menu](docs/screenshots/shot7-kde-win11-menu.png)
+![Windows 11-style Start menu](docs/screenshots/start-menu.png)
 
 ## Two editions
 

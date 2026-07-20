@@ -10,11 +10,11 @@ Un bureau Linux qui imite l'apparence de Windows — barre des tâches, menu Dé
 
 **Édition Familiale (KDE)** — bureau complet façon Windows 11 :
 
-![Bureau DejaVu : barre des tâches centrée, icônes Win11, fond Bloom](docs/screenshots/shot9-office-firefox.png)
+![Bureau DejaVu : barre des tâches centrée, icônes Win11, fond Bloom](docs/screenshots/desktop.png)
 
 Le menu Démarrer, avec recherche et applications épinglées :
 
-![Menu Démarrer style Windows 11](docs/screenshots/shot7-kde-win11-menu.png)
+![Menu Démarrer style Windows 11](docs/screenshots/start-menu.png)
 
 ## Deux éditions
 
