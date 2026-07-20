@@ -1,0 +1,32 @@
+# Redmond Desktop — menu Démarrer (jgmenu)
+position_mode = fixed
+menu_margin_x = 6
+menu_margin_y = 46
+menu_valign = bottom
+menu_halign = left
+menu_width = 320
+menu_padding_top = 10
+menu_padding_right = 8
+menu_padding_bottom = 10
+menu_padding_left = 8
+menu_radius = 8
+menu_border = 1
+
+item_height = 34
+item_padding_x = 10
+item_radius = 4
+item_border = 0
+icon_size = 24
+font = Sans 10
+
+color_menu_bg = #202020 95
+color_menu_border = #3a3a3a 100
+color_norm_bg = #202020 0
+color_norm_fg = #ffffff 100
+color_sel_bg = #0063B1 90
+color_sel_fg = #ffffff 100
+color_sep_fg = #4d4d4d 100
+
+csv_cmd = apps
+csv_name_format = %n
+search_all_items = 1

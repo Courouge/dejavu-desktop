@@ -1,0 +1,27 @@
+#!/bin/sh
+# Redmond Desktop — démarrage de la session Openbox.
+
+# Agent d'authentification (montages, mises à jour…)
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+# Fond d'écran : image utilisateur si présente, sinon bleu uni façon Windows
+WALL="${XDG_CONFIG_HOME:-$HOME/.config}/redmond/wallpaper.jpg"
+if [ -f "$WALL" ]; then
+    feh --bg-fill "$WALL" &
+else
+    xsetroot -solid "#0063B1" &
+fi
+
+# Compositeur (ombres, transparence)
+picom --config "${XDG_CONFIG_HOME:-$HOME/.config}/picom.conf" &
+
+# Barre des tâches
+tint2 &
+
+# Zone de notification
+nm-applet &
+volumeicon &
+dunst &
+
+# Verrouillage d'écran
+light-locker &

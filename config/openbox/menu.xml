@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+  <menu id="root-menu" label="Bureau">
+    <item label="Explorateur de fichiers">
+      <action name="Execute"><command>thunar</command></action>
+    </item>
+    <item label="Terminal">
+      <action name="Execute"><command>x-terminal-emulator</command></action>
+    </item>
+    <item label="Navigateur web">
+      <action name="Execute"><command>x-www-browser</command></action>
+    </item>
+    <separator/>
+    <item label="Apparence">
+      <action name="Execute"><command>lxappearance</command></action>
+    </item>
+    <item label="Recharger la barre des tâches">
+      <action name="Execute"><command>sh -c 'killall tint2; tint2 &amp;'</command></action>
+    </item>
+    <item label="Reconfigurer Openbox">
+      <action name="Reconfigure"/>
+    </item>
+    <separator/>
+    <item label="Déconnexion">
+      <action name="Exit"><prompt>yes</prompt></action>
+    </item>
+  </menu>
+</openbox_menu>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Menu Démarrer
+Comment=Ouvrir le menu Démarrer
+Exec=jgmenu_run
+Icon=distributor-logo
+Categories=Utility;
+NoDisplay=true
