@@ -118,7 +118,7 @@ if (p) {
     menu.writeConfig("icon", "start-here");
     if (tm) {
       tm.currentConfigGroup = ["General"];
-      tm.writeConfig("launchers", "REDMOND_LAUNCHERS");
+      tm.writeConfig("launchers", "REDMOND_LAUNCHERS".split(","));
     }
     s1.index = 0; menu.index = 1; if (tm) { tm.index = 2; } s2.index = 3;
   }
