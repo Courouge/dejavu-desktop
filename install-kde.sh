@@ -38,6 +38,32 @@ install_office() {
   sudo apt-get install -y libreoffice-kf5 2>/dev/null || true
 }
 
+install_updates() {
+  # Équivalent Windows Update : Discover (logithèque + notifications de mises à jour
+  # dans la zone de notification) + mises à jour de sécurité automatiques.
+  log "Installation des mises à jour automatiques (Discover + unattended-upgrades)…"
+  sudo apt-get install -y plasma-discover unattended-upgrades
+  printf 'APT::Periodic::Update-Package-Lists "1";\nAPT::Periodic::Unattended-Upgrade "1";\n' | \
+    sudo tee /etc/apt/apt.conf.d/20auto-upgrades >/dev/null
+  sudo systemctl enable --now unattended-upgrades 2>/dev/null || true
+}
+
+rename_for_novices() {
+  # Noms familiers pour les habitués de Windows (override local, système intact)
+  log "Renommage novice : Dolphin → Explorateur de fichiers, Konsole → Terminal…"
+  mkdir -p "$HOME/.local/share/applications"
+  local app id name src dst
+  for app in "org.kde.dolphin:Explorateur de fichiers" "org.kde.konsole:Terminal"; do
+    id="${app%%:*}"; name="${app#*:}"
+    src="/usr/share/applications/$id.desktop"
+    dst="$HOME/.local/share/applications/$id.desktop"
+    if [ -f "$src" ]; then
+      cp "$src" "$dst"
+      sed -i "/^Name\[/d; s/^Name=.*/Name=$name/" "$dst"
+    fi
+  done
+}
+
 fix_browser_icon() {
   # Firefox snap : Icon= en chemin absolu que le panneau ne résout pas → override local
   local src=/var/lib/snapd/desktop/applications/firefox_firefox.desktop
@@ -103,9 +129,11 @@ apply_theme() {
 }
 
 apply_panel_layout() {
-  # Barre des tâches centrée façon Win11 : menu OnzeMenu + applis épinglées.
+  # Barre des tâches façon Win11 : reconstruction complète du panneau bas
+  # (spacer, menu OnzeMenu, tâches épinglées, spacer, systray, horloge, bureau).
+  # NB : assigner widget.index ne fonctionne pas sur Plasma 5.27 — on reconstruit.
   pgrep -x plasmashell >/dev/null 2>&1 || return 0
-  log "Configuration du panneau (menu Win11, barre centrée, épinglage)…"
+  log "Reconstruction du panneau (menu Win11, barre centrée, épinglage)…"
   # Le navigateur peut s'appeler firefox.desktop (deb) ou firefox_firefox.desktop (snap Ubuntu)
   local browser=""
   local c
@@ -120,30 +148,31 @@ apply_panel_layout() {
     office="applications:libreoffice-startcenter.desktop,"
   local launchers="applications:org.kde.dolphin.desktop,${browser}${office}applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
   local js='
+var already = false;
 var ps = panels();
-var p = null;
-for (var i = 0; i < ps.length; i++) { if (ps[i].location == "bottom") { p = ps[i]; break; } }
-if (p) {
-  var widgets = p.widgets();
-  var tm = null, hasMenu = false;
-  for (var i = 0; i < widgets.length; i++) {
-    var w = widgets[i];
-    if (w.type == "org.kde.plasma.kickoff") { w.remove(); }
-    if (w.type == "org.kde.plasma.icontasks") { tm = w; }
-    if (w.type == "OnzeMenu") { hasMenu = true; }
-  }
-  if (!hasMenu) {
-    var s1 = p.addWidget("org.kde.plasma.panelspacer");
-    var menu = p.addWidget("OnzeMenu");
-    var s2 = p.addWidget("org.kde.plasma.panelspacer");
-    menu.currentConfigGroup = ["General"];
-    menu.writeConfig("icon", "start-here");
-    if (tm) {
-      tm.currentConfigGroup = ["General"];
-      tm.writeConfig("launchers", "DEJAVU_LAUNCHERS".split(","));
-    }
-    s1.index = 0; menu.index = 1; if (tm) { tm.index = 2; } s2.index = 3;
-  }
+for (var i = 0; i < ps.length; i++) {
+  if (ps[i].location != "bottom") continue;
+  var ws = ps[i].widgets();
+  for (var j = 0; j < ws.length; j++) { if (ws[j].type == "OnzeMenu") { already = true; } }
+}
+if (!already) {
+  var ps = panels();
+  for (var i = 0; i < ps.length; i++) { if (ps[i].location == "bottom") { ps[i].remove(); } }
+  var p = new Panel;
+  p.location = "bottom";
+  p.height = 44;
+  p.addWidget("org.kde.plasma.panelspacer");
+  var menu = p.addWidget("OnzeMenu");
+  menu.currentConfigGroup = ["General"];
+  menu.writeConfig("icon", "start-here");
+  var tm = p.addWidget("org.kde.plasma.icontasks");
+  tm.currentConfigGroup = ["General"];
+  tm.writeConfig("launchers", "DEJAVU_LAUNCHERS".split(","));
+  p.addWidget("org.kde.plasma.panelspacer");
+  p.addWidget("org.kde.plasma.marginsseparator");
+  p.addWidget("org.kde.plasma.systemtray");
+  p.addWidget("org.kde.plasma.digitalclock");
+  p.addWidget("org.kde.plasma.showdesktop");
 }'
   js="${js//DEJAVU_LAUNCHERS/$launchers}"
   dbus-send --print-reply --session --dest=org.kde.plasmashell \
@@ -158,10 +187,12 @@ main() {
   require_apt
   install_plasma
   install_office
+  install_updates
   download_themes
   install_themes
   install_sddm_theme
   fix_browser_icon
+  rename_for_novices
   apply_theme
   apply_panel_layout
   log "Terminé. Si Plasma vient d'être installé : déconnectez-vous, choisissez la"
