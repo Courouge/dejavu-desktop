@@ -87,6 +87,16 @@ apply_panel_layout() {
   # Barre des tâches centrée façon Win11 : menu OnzeMenu + applis épinglées.
   pgrep -x plasmashell >/dev/null 2>&1 || return 0
   log "Configuration du panneau (menu Win11, barre centrée, épinglage)…"
+  # Le navigateur peut s'appeler firefox.desktop (deb) ou firefox_firefox.desktop (snap Ubuntu)
+  local browser=""
+  local c
+  for c in firefox_firefox.desktop firefox.desktop org.mozilla.firefox.desktop; do
+    if [ -f "/usr/share/applications/$c" ] || [ -f "/var/lib/snapd/desktop/applications/$c" ]; then
+      browser="applications:$c,"
+      break
+    fi
+  done
+  local launchers="applications:org.kde.dolphin.desktop,${browser}applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
   local js='
 var ps = panels();
 var p = null;
@@ -108,11 +118,12 @@ if (p) {
     menu.writeConfig("icon", "start-here");
     if (tm) {
       tm.currentConfigGroup = ["General"];
-      tm.writeConfig("launchers", "applications:org.kde.dolphin.desktop,applications:firefox.desktop,applications:org.kde.konsole.desktop,applications:systemsettings.desktop");
+      tm.writeConfig("launchers", "REDMOND_LAUNCHERS");
     }
     s1.index = 0; menu.index = 1; if (tm) { tm.index = 2; } s2.index = 3;
   }
 }'
+  js="${js//REDMOND_LAUNCHERS/$launchers}"
   dbus-send --print-reply --session --dest=org.kde.plasmashell \
     /PlasmaShell org.kde.PlasmaShell.evaluateScript string:"$js" >/dev/null || true
   # Redémarrage du shell
