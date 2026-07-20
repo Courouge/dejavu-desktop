@@ -146,7 +146,8 @@ apply_panel_layout() {
   local office=""
   [ -f /usr/share/applications/libreoffice-startcenter.desktop ] && \
     office="applications:libreoffice-startcenter.desktop,"
-  local launchers="applications:org.kde.dolphin.desktop,${browser}${office}applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
+  # Pas de terminal épinglé : public novice (Konsole reste dans le menu Démarrer)
+  local launchers="applications:org.kde.dolphin.desktop,${browser}${office}applications:systemsettings.desktop"
   local js='
 var already = false;
 var ps = panels();

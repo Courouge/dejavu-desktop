@@ -26,7 +26,7 @@ The Start menu, with search and pinned apps:
 The Family Edition turns Plasma into a near-Windows 11 (recipe validated on Ubuntu 24.04):
 - **Win11OS** global theme + **Win11** icons (yeyushengfan258) + Bloom wallpaper
 - **Windows 11 Start menu** (OnzeMenu plasmoid: search, pinned/recommended apps)
-- **centered taskbar** with pinned apps (file manager, Firefox, LibreOffice, terminal, settings)
+- **centered taskbar** with pinned apps (file manager, Firefox, LibreOffice, settings)
 - Win11 window decorations, **double-click to open**, themed login and lock screens
 - **office essentials included**: LibreOffice, Okular (PDF), Gwenview (photos), Ark (archives), Kate, calculator
 - **automatic updates**: Discover (tray notifications, Windows Update-style) + unattended security upgrades

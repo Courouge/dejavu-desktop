@@ -26,7 +26,7 @@ Le menu Démarrer, avec recherche et applications épinglées :
 L'édition Familiale transforme Plasma en quasi-Windows 11 (recette validée sur Ubuntu 24.04) :
 - thème global **Win11OS** + icônes **Win11** (yeyushengfan258) + fond d'écran Bloom
 - **menu Démarrer Windows 11** (plasmoïde OnzeMenu : recherche, applications épinglées/recommandées)
-- **barre des tâches centrée** avec applications épinglées (explorateur, Firefox, LibreOffice, terminal, paramètres)
+- **barre des tâches centrée** avec applications épinglées (explorateur, Firefox, LibreOffice, paramètres)
 - décorations de fenêtres Win11, **double-clic pour ouvrir**, écrans de connexion et de verrouillage thémés
 - **bureautique incluse** : LibreOffice (fr), Okular (PDF), Gwenview (images), Ark (archives), Kate, calculatrice
 - **mises à jour automatiques** : Discover (notifications façon Windows Update) + correctifs de sécurité sans intervention
