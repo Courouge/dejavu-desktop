@@ -111,3 +111,7 @@ Restores the backed-up configurations (`*.dejavu-backup`).
 ## Trademarks
 
 Independent project, not affiliated with Microsoft. No proprietary assets (Windows icons, fonts, logos) are distributed: only free themes with a similar look are used.
+
+## License
+
+MIT - see [LICENSE](LICENSE).

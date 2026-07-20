@@ -111,3 +111,7 @@ Restaure les configurations sauvegardées (`*.dejavu-backup`).
 ## Marques
 
 Projet indépendant, non affilié à Microsoft. Aucune ressource propriétaire (icônes, polices, logos Windows) n'est distribuée : seuls des thèmes libres d'inspiration similaire sont utilisés.
+
+## Licence
+
+MIT - voir [LICENSE](LICENSE).
