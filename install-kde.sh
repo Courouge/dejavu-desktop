@@ -31,6 +31,25 @@ install_plasma() {
     sudo apt-get install -y kdeplasma-addons git
 }
 
+install_office() {
+  # Bureautique de base pour un poste familial (équivalents Word/PDF/photos/zip)
+  log "Installation de la bureautique (LibreOffice, PDF, images, archives)…"
+  sudo apt-get install -y libreoffice libreoffice-l10n-fr okular gwenview ark kate kcalc
+  sudo apt-get install -y libreoffice-kf5 2>/dev/null || true
+}
+
+fix_browser_icon() {
+  # Firefox snap : Icon= en chemin absolu que le panneau ne résout pas → override local
+  local src=/var/lib/snapd/desktop/applications/firefox_firefox.desktop
+  [ -f "$src" ] || return 0
+  log "Correction de l'icône Firefox (snap)…"
+  mkdir -p "$HOME/.local/share/applications" "$HOME/.local/share/icons/hicolor/256x256/apps"
+  cp "$src" "$HOME/.local/share/applications/firefox_firefox.desktop"
+  sed -i 's|^Icon=.*|Icon=firefox|' "$HOME/.local/share/applications/firefox_firefox.desktop"
+  [ -f /snap/firefox/current/default256.png ] && \
+    cp /snap/firefox/current/default256.png "$HOME/.local/share/icons/hicolor/256x256/apps/firefox.png"
+}
+
 download_themes() {
   TMPD="$(mktemp -d)"
   log "Téléchargement des thèmes (dépôts libres GitHub)…"
@@ -96,7 +115,10 @@ apply_panel_layout() {
       break
     fi
   done
-  local launchers="applications:org.kde.dolphin.desktop,${browser}applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
+  local office=""
+  [ -f /usr/share/applications/libreoffice-startcenter.desktop ] && \
+    office="applications:libreoffice-startcenter.desktop,"
+  local launchers="applications:org.kde.dolphin.desktop,${browser}${office}applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
   local js='
 var ps = panels();
 var p = null;
@@ -135,9 +157,11 @@ if (p) {
 main() {
   require_apt
   install_plasma
+  install_office
   download_themes
   install_themes
   install_sddm_theme
+  fix_browser_icon
   apply_theme
   apply_panel_layout
   log "Terminé. Si Plasma vient d'être installé : déconnectez-vous, choisissez la"

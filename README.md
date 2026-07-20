@@ -16,6 +16,7 @@ L'édition familiale transforme Plasma en quasi-Windows 11 (recette validée sur
 - **menu Démarrer Windows 11** (plasmoïde OnzeMenu : recherche, applications épinglées/recommandées)
 - **barre des tâches centrée** avec applications épinglées (explorateur, Firefox, terminal, paramètres)
 - décorations de fenêtres Win11, **double-clic pour ouvrir**, écran de connexion SDDM thémé
+- **bureautique incluse** : LibreOffice (fr), Okular (PDF), Gwenview (images), Ark (archives), Kate, calculatrice — et Firefox épinglé avec la bonne icône
 
 Captures (VM Debian 12 pour Lite, VM Ubuntu 24.04 pour KDE) : voir [docs/screenshots/](docs/screenshots/).
 
