@@ -23,7 +23,7 @@ Le menu Démarrer, avec recherche et applications épinglées :
 | **Familiale** (KDE) | `./install-kde.sh` | Ubuntu/Kubuntu + KDE Plasma | Usage quotidien complet (paramètres, Wi-Fi, imprimantes intégrés) |
 | **Lite** (Openbox) | `./install.sh` | Debian/Ubuntu minimal + Openbox/tint2/jgmenu | Vieux PC, machines Windows 10 en fin de support (~300 Mo RAM) |
 
-L'édition Familiale transforme Plasma en quasi-Windows 11 (recette validée sur Ubuntu 24.04) :
+L'édition Familiale transforme Plasma en quasi-Windows 11 (validée sur Ubuntu 24.04 Plasma 5 et 26.04 Plasma 6) :
 - thème global **Win11OS** + icônes **Win11** (yeyushengfan258) + fond d'écran Bloom
 - **menu Démarrer Windows 11** (plasmoïde OnzeMenu : recherche, applications épinglées/recommandées)
 - **barre des tâches centrée** avec applications épinglées (explorateur, Firefox, LibreOffice, paramètres)
@@ -46,7 +46,7 @@ Tout PC qui faisait tourner Windows 10 satisfait l'édition Lite ; la plupart de
 ## Installer from scratch (depuis un PC sous Windows)
 
 1. **Sauvegardez vos fichiers** (clé USB ou cloud) — l'installation peut effacer le disque.
-2. **Téléchargez l'ISO d'Ubuntu 24.04 LTS** sur [ubuntu.com/download](https://ubuntu.com/download/desktop).
+2. **Téléchargez l'ISO d'Ubuntu 26.04 LTS** sur [ubuntu.com/download](https://ubuntu.com/download/desktop).
 3. **Créez une clé USB d'installation** (8 Go ou plus) avec [balenaEtcher](https://etcher.balena.io/) ou [Rufus](https://rufus.ie/) : choisir l'ISO, choisir la clé, écrire.
 4. **Démarrez le PC sur la clé** : redémarrez et pressez la touche du menu de démarrage (souvent `F12`, `F9`, `Échap` ou `F2` selon la marque), puis choisissez la clé USB.
 5. **Installez Ubuntu** : suivez l'assistant — langue, clavier, puis « Effacer le disque et installer Ubuntu » (ou installer à côté de Windows pour le conserver). Créez votre compte, laissez finir, redémarrez.

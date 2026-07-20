@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # DejaVu Desktop — édition familiale : KDE Plasma déguisé en Windows 11.
 # Cible : Ubuntu 22.04+/Kubuntu/Debian 12+ avec Plasma disponible.
-# Recette validée le 2026-07-20 sur Ubuntu 24.04 (Plasma 5.27) en VM.
+# Recette validée le 2026-07-20 sur Ubuntu 24.04 (Plasma 5.27) et 26.04 (Plasma 6.6) en VM.
 set -euo pipefail
 
 LNF_ID="com.github.yeyushengfan258.Win11OS-dark"
 ICON_THEME="Win11"
+MENU_PLUGIN="org.kde.plasma.kickoff"
 TMPD=""
 
 log() { printf '\033[1;34m[dejavu-kde]\033[0m %s\n' "$*"; }
@@ -27,8 +28,11 @@ install_plasma() {
       dolphin konsole kscreen plasma-nm plasma-pa firefox git
   fi
   # quicklaunch (requis par OnzeMenu) + outils
-  sudo apt-get install -y plasma-widgets-addons git kpackagetool5 2>/dev/null || \
+  sudo apt-get install -y plasma-widgets-addons git 2>/dev/null || \
     sudo apt-get install -y kdeplasma-addons git
+  # Outil d'installation de plasmoïdes : nom différent selon Plasma 5/6
+  sudo apt-get install -y kpackagetool5 2>/dev/null || \
+    sudo apt-get install -y kpackagetool6 2>/dev/null || true
 }
 
 install_office() {
@@ -95,10 +99,17 @@ install_themes() {
   log "Installation thème global + icônes + menu Win11…"
   (cd "$TMPD/win11os" && bash ./install.sh)
   (cd "$TMPD/win11icons" && bash ./install.sh)
-  local pkgdir
+  # Menu Win11 : OnzeMenu (Plasma 5 uniquement). Sur Plasma 6 le format de
+  # plasmoïde a changé → repli sur Kickoff natif (déjà proche de Win11).
+  MENU_PLUGIN="org.kde.plasma.kickoff"
+  local pkgdir kpt
+  kpt="$(command -v kpackagetool6 || command -v kpackagetool5)"
   pkgdir=$(dirname "$(find "$TMPD/onzemenu" -maxdepth 4 -name 'metadata.desktop' -o -maxdepth 4 -name 'metadata.json' | head -1)")
-  kpackagetool5 -t Plasma/Applet -i "$pkgdir" 2>/dev/null || \
-    kpackagetool5 -t Plasma/Applet -u "$pkgdir"
+  if "$kpt" -t Plasma/Applet -i "$pkgdir" 2>/dev/null || "$kpt" -t Plasma/Applet -u "$pkgdir" 2>/dev/null; then
+    MENU_PLUGIN="OnzeMenu"
+  else
+    err "OnzeMenu incompatible (Plasma 6) — menu Kickoff natif conservé."
+  fi
   local wall="$TMPD/win11os/wallpaper/Win11OS-light/contents/images/3840x2400.jpg"
   if [ -f "$wall" ]; then
     mkdir -p "$HOME/.local/share/dejavu"
@@ -122,9 +133,10 @@ apply_theme() {
     return
   fi
   log "Application du thème, des icônes, du fond d'écran et des comportements Windows…"
-  local kw
+  local kw lnftool
   kw="$(command -v kwriteconfig6 || command -v kwriteconfig5)"
-  lookandfeeltool -a "$LNF_ID" || err "Échec application du thème global."
+  lnftool="$(command -v lookandfeeltool || command -v plasma-apply-lookandfeel)"
+  "$lnftool" -a "$LNF_ID" || err "Échec application du thème global."
   "$kw" --file kdeglobals --group Icons --key Theme "$ICON_THEME" || true
   # Décorations de fenêtres Win11 + double-clic pour ouvrir (habitude Windows)
   "$kw" --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae
@@ -161,7 +173,14 @@ var ps = panels();
 for (var i = 0; i < ps.length; i++) {
   if (ps[i].location != "bottom") continue;
   var ws = ps[i].widgets();
-  for (var j = 0; j < ws.length; j++) { if (ws[j].type == "OnzeMenu") { already = true; } }
+  for (var j = 0; j < ws.length; j++) {
+    var w = ws[j];
+    if (w.type == "OnzeMenu") { already = true; }
+    if (w.type == "org.kde.plasma.kickoff") {
+      w.currentConfigGroup = ["General"];
+      if (w.readConfig("icon", "") == "start-here") { already = true; }
+    }
+  }
 }
 if (!already) {
   var ps = panels();
@@ -170,7 +189,7 @@ if (!already) {
   p.location = "bottom";
   p.height = 44;
   p.addWidget("org.kde.plasma.panelspacer");
-  var menu = p.addWidget("OnzeMenu");
+  var menu = p.addWidget("DEJAVU_MENU");
   menu.currentConfigGroup = ["General"];
   menu.writeConfig("icon", "start-here");
   var tm = p.addWidget("org.kde.plasma.icontasks");
@@ -183,12 +202,17 @@ if (!already) {
   p.addWidget("org.kde.plasma.showdesktop");
 }'
   js="${js//DEJAVU_LAUNCHERS/$launchers}"
+  js="${js//DEJAVU_MENU/$MENU_PLUGIN}"
   dbus-send --print-reply --session --dest=org.kde.plasmashell \
     /PlasmaShell org.kde.PlasmaShell.evaluateScript string:"$js" >/dev/null || true
-  # Redémarrage du shell
-  (kquitapp5 plasmashell 2>/dev/null || kquitapp6 plasmashell 2>/dev/null || true
-   sleep 2
-   setsid plasmashell --replace >/dev/null 2>&1 &) || true
+  # Redémarrage du shell — via systemd user (fiable en X11 comme en Wayland)
+  if systemctl --user is-active plasma-plasmashell.service >/dev/null 2>&1; then
+    systemctl --user restart plasma-plasmashell.service || true
+  else
+    (kquitapp5 plasmashell 2>/dev/null || kquitapp6 plasmashell 2>/dev/null || true
+     sleep 2
+     setsid plasmashell --replace >/dev/null 2>&1 &) || true
+  fi
 }
 
 main() {

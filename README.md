@@ -23,7 +23,7 @@ The Start menu, with search and pinned apps:
 | **Family** (KDE) | `./install-kde.sh` | Ubuntu/Kubuntu + KDE Plasma | Full daily use (settings, Wi-Fi, printers built in) |
 | **Lite** (Openbox) | `./install.sh` | Minimal Debian/Ubuntu + Openbox/tint2/jgmenu | Old PCs, end-of-support Windows 10 machines (~300 MB RAM) |
 
-The Family Edition turns Plasma into a near-Windows 11 (recipe validated on Ubuntu 24.04):
+The Family Edition turns Plasma into a near-Windows 11 (validated on Ubuntu 24.04 Plasma 5 and 26.04 Plasma 6):
 - **Win11OS** global theme + **Win11** icons (yeyushengfan258) + Bloom wallpaper
 - **Windows 11 Start menu** (OnzeMenu plasmoid: search, pinned/recommended apps)
 - **centered taskbar** with pinned apps (file manager, Firefox, LibreOffice, settings)
@@ -46,7 +46,7 @@ Any PC that ran Windows 10 meets the Lite Edition requirements; most PCs from 20
 ## Install from scratch (starting from a Windows PC)
 
 1. **Back up your files** (USB drive or cloud) — the installation can erase the disk.
-2. **Download an Ubuntu 24.04 LTS ISO** from [ubuntu.com/download](https://ubuntu.com/download/desktop).
+2. **Download an Ubuntu 26.04 LTS ISO** from [ubuntu.com/download](https://ubuntu.com/download/desktop).
 3. **Create a bootable USB stick** (8 GB+) with [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/): pick the ISO, pick the USB stick, write.
 4. **Boot the PC on the USB stick**: restart and press the boot-menu key (usually `F12`, `F9`, `Esc`, or `F2` depending on the brand), then choose the USB drive.
 5. **Install Ubuntu**: follow the wizard — language, keyboard, then "Erase disk and install Ubuntu" (or install alongside Windows if you want to keep it). Create your user account and let it finish, then reboot.
