@@ -1,98 +1,100 @@
 # DejaVu Desktop
 
-Un bureau Linux qui imite l'apparence de Windows — barre des tâches, menu Démarrer, thème et raccourcis familiers. *Vous connaissez déjà cet écran.*
+🇫🇷 [Version française](README.fr.md)
 
-**Public visé** : les personnes qui migrent de Windows vers Linux et veulent retrouver leurs repères immédiatement.
+A Linux desktop that looks and feels like Windows — familiar taskbar, Start menu, theme, and keyboard shortcuts. *You already know this screen.*
 
-## À quoi ça ressemble
+**Made for**: people switching from Windows to Linux who want to keep their bearings from day one.
 
-**Édition Familiale (KDE)** — bureau complet façon Windows 11 :
+## What it looks like
 
-![Bureau DejaVu : barre des tâches centrée, icônes Win11, fond Bloom](docs/screenshots/shot9-office-firefox.png)
+**Family Edition (KDE)** — a full Windows 11-style desktop:
 
-Le menu Démarrer, avec recherche et applications épinglées :
+![DejaVu desktop: centered taskbar, Win11 icons, Bloom wallpaper](docs/screenshots/shot9-office-firefox.png)
 
-![Menu Démarrer style Windows 11](docs/screenshots/shot7-kde-win11-menu.png)
+The Start menu, with search and pinned apps:
 
-**Édition Lite (Openbox)** — la même promesse pour les vieux PC :
+![Windows 11-style Start menu](docs/screenshots/shot7-kde-win11-menu.png)
 
-![Édition Lite : Openbox + tint2, barre des tâches et fenêtres](docs/screenshots/shot2-windows.png)
+**Lite Edition (Openbox)** — the same promise for old PCs:
 
-## Deux éditions
+![Lite Edition: Openbox + tint2, taskbar and windows](docs/screenshots/shot2-windows.png)
 
-| Édition | Script | Base | Pour qui |
+## Two editions
+
+| Edition | Script | Base | Who it's for |
 |---|---|---|---|
-| **Lite** (Openbox) | `./install.sh` | Debian/Ubuntu minimal + Openbox/tint2/jgmenu | Vieux PC, machines Windows 10 en fin de support (~300 Mo RAM) |
-| **Familiale** (KDE) | `./install-kde.sh` | Ubuntu/Kubuntu + KDE Plasma | Usage quotidien complet (paramètres, Wi-Fi, imprimantes intégrés) |
+| **Family** (KDE) | `./install-kde.sh` | Ubuntu/Kubuntu + KDE Plasma | Full daily use (settings, Wi-Fi, printers built in) |
+| **Lite** (Openbox) | `./install.sh` | Minimal Debian/Ubuntu + Openbox/tint2/jgmenu | Old PCs, end-of-support Windows 10 machines (~300 MB RAM) |
 
-L'édition familiale transforme Plasma en quasi-Windows 11 (recette validée sur Ubuntu 24.04) :
-- thème global **Win11OS** + icônes **Win11** (yeyushengfan258) + fond d'écran Bloom
-- **menu Démarrer Windows 11** (plasmoïde OnzeMenu : recherche, applications épinglées/recommandées)
-- **barre des tâches centrée** avec applications épinglées (explorateur, Firefox, terminal, paramètres)
-- décorations de fenêtres Win11, **double-clic pour ouvrir**, écran de connexion SDDM thémé
-- **bureautique incluse** : LibreOffice (fr), Okular (PDF), Gwenview (images), Ark (archives), Kate, calculatrice — et Firefox épinglé avec la bonne icône
-
-Captures (VM Debian 12 pour Lite, VM Ubuntu 24.04 pour KDE) : voir [docs/screenshots/](docs/screenshots/).
-
-## Notes VM / matériel
-
-- Dans une VM sans GPU : picom doit passer en backend `xrender` (édition Lite).
-- Les images cloud Debian/Ubuntu utilisent un noyau allégé **sans pilotes DRM** : installer `linux-generic` (Ubuntu) ou `linux-image-amd64` (Debian) pour l'affichage virtio/qxl.
-- Préférer un display manager (LightDM/SDDM) à `startx` lancé par systemd.
-
-## Composants
-
-| Rôle | Outil |
-|---|---|
-| Gestionnaire de fenêtres | Openbox |
-| Barre des tâches (+ zone de notification, horloge) | tint2 |
-| Menu Démarrer | jgmenu |
-| Effets (ombres, transparence) | picom |
-| Fond d'écran | feh |
-| Thème GTK + icônes | B00merang Windows-10 |
-| Gestionnaire de fichiers | Thunar |
-| Réseau / volume / notifications | nm-applet, volumeicon, dunst |
+The Family Edition turns Plasma into a near-Windows 11 (recipe validated on Ubuntu 24.04):
+- **Win11OS** global theme + **Win11** icons (yeyushengfan258) + Bloom wallpaper
+- **Windows 11 Start menu** (OnzeMenu plasmoid: search, pinned/recommended apps)
+- **centered taskbar** with pinned apps (file manager, Firefox, LibreOffice, terminal, settings)
+- Win11 window decorations, **double-click to open**, themed login and lock screens
+- **office essentials included**: LibreOffice, Okular (PDF), Gwenview (photos), Ark (archives), Kate, calculator
 
 ## Installation
 
-Distributions supportées : **Debian 12+, Ubuntu 22.04+** (et dérivées).
+Supported distributions: **Debian 12+, Ubuntu 22.04+** (and derivatives).
 
 ```bash
 git clone https://github.com/Courouge/dejavu-desktop.git
 cd dejavu-desktop
+
+# Family Edition (recommended)
+./install-kde.sh
+# then log out, pick the "Plasma (X11)" session, and run ./install-kde.sh again
+
+# OR Lite Edition (old PCs)
 ./install.sh
+# then log out and pick the "Openbox" session
 ```
 
-Puis se déconnecter et choisir la session **Openbox** sur l'écran de connexion.
+## Keyboard shortcuts (same as Windows)
 
-## Raccourcis clavier (identiques à Windows)
-
-| Raccourci | Action |
+| Shortcut | Action |
 |---|---|
-| `Super` | Menu Démarrer |
-| `Super + E` | Explorateur de fichiers |
-| `Super + D` | Afficher le bureau |
-| `Super + L` | Verrouiller l'écran |
-| `Super + ←/→` | Ancrer la fenêtre à gauche/droite |
-| `Alt + Tab` | Changer de fenêtre |
-| `Alt + F4` | Fermer la fenêtre |
+| `Super` | Start menu |
+| `Super + E` | File explorer |
+| `Super + D` | Show desktop |
+| `Super + L` | Lock screen |
+| `Super + ←/→` | Snap window left/right |
+| `Alt + Tab` | Switch windows |
+| `Alt + F4` | Close window |
 
-## Personnalisation
+## Lite Edition: components and customization
 
-- Barre des tâches : `~/.config/tint2/tint2rc`
-- Menu Démarrer : `~/.config/jgmenu/jgmenurc`
-- Raccourcis / fenêtres : `~/.config/openbox/rc.xml`
-- Fond d'écran : placer une image dans `~/.config/dejavu/wallpaper.jpg`
-- Apparence GTK : lancer `lxappearance`
+| Role | Tool |
+|---|---|
+| Window manager | Openbox |
+| Taskbar (+ system tray, clock) | tint2 |
+| Start menu | jgmenu |
+| Effects (shadows, transparency) | picom |
+| Wallpaper | feh |
+| GTK theme + icons | B00merang Windows-10 |
+| File manager | Thunar |
+| Network / volume / notifications | nm-applet, volumeicon, dunst |
 
-## Désinstallation
+- Taskbar: `~/.config/tint2/tint2rc` — Menu: `~/.config/jgmenu/jgmenurc`
+- Shortcuts / windows: `~/.config/openbox/rc.xml`
+- Wallpaper: drop an image at `~/.config/dejavu/wallpaper.jpg`
+- GTK appearance: run `lxappearance`
+
+## VM / hardware notes
+
+- In a VM without GPU: switch picom to the `xrender` backend (Lite Edition).
+- Debian/Ubuntu cloud images ship a trimmed kernel **without DRM drivers**: install `linux-generic` (Ubuntu) or `linux-image-amd64` (Debian) for virtio/qxl display.
+- Prefer a display manager (LightDM/SDDM) over `startx` launched from systemd.
+
+## Uninstall
 
 ```bash
 ./uninstall.sh
 ```
 
-Restaure les configurations sauvegardées (`*.dejavu-backup`).
+Restores the backed-up configurations (`*.dejavu-backup`).
 
-## Marques
+## Trademarks
 
-Projet indépendant, non affilié à Microsoft. Aucune ressource propriétaire (icônes, polices, logos Windows) n'est distribuée : seuls des thèmes libres d'inspiration similaire sont utilisés.
+Independent project, not affiliated with Microsoft. No proprietary assets (Windows icons, fonts, logos) are distributed: only free themes with a similar look are used.
