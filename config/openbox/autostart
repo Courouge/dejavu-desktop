@@ -1,11 +1,11 @@
 #!/bin/sh
-# Redmond Desktop — démarrage de la session Openbox.
+# DejaVu Desktop — démarrage de la session Openbox.
 
 # Agent d'authentification (montages, mises à jour…)
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 # Fond d'écran : image utilisateur si présente, sinon bleu uni façon Windows
-WALL="${XDG_CONFIG_HOME:-$HOME/.config}/redmond/wallpaper.jpg"
+WALL="${XDG_CONFIG_HOME:-$HOME/.config}/dejavu/wallpaper.jpg"
 if [ -f "$WALL" ]; then
     feh --bg-fill "$WALL" &
 else

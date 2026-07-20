@@ -1,8 +1,22 @@
-# Redmond Desktop
+# DejaVu Desktop
 
-Un bureau Linux qui imite l'apparence de Windows — barre des tâches, menu Démarrer, thème et raccourcis familiers.
+Un bureau Linux qui imite l'apparence de Windows — barre des tâches, menu Démarrer, thème et raccourcis familiers. *Vous connaissez déjà cet écran.*
 
 **Public visé** : les personnes qui migrent de Windows vers Linux et veulent retrouver leurs repères immédiatement.
+
+## À quoi ça ressemble
+
+**Édition Familiale (KDE)** — bureau complet façon Windows 11 :
+
+![Bureau DejaVu : barre des tâches centrée, icônes Win11, fond Bloom](docs/screenshots/shot9-office-firefox.png)
+
+Le menu Démarrer, avec recherche et applications épinglées :
+
+![Menu Démarrer style Windows 11](docs/screenshots/shot7-kde-win11-menu.png)
+
+**Édition Lite (Openbox)** — la même promesse pour les vieux PC :
+
+![Édition Lite : Openbox + tint2, barre des tâches et fenêtres](docs/screenshots/shot2-windows.png)
 
 ## Deux éditions
 
@@ -44,8 +58,8 @@ Captures (VM Debian 12 pour Lite, VM Ubuntu 24.04 pour KDE) : voir [docs/screens
 Distributions supportées : **Debian 12+, Ubuntu 22.04+** (et dérivées).
 
 ```bash
-git clone <repo> redmond-desktop
-cd redmond-desktop
+git clone https://github.com/Courouge/dejavu-desktop.git
+cd dejavu-desktop
 ./install.sh
 ```
 
@@ -68,7 +82,7 @@ Puis se déconnecter et choisir la session **Openbox** sur l'écran de connexion
 - Barre des tâches : `~/.config/tint2/tint2rc`
 - Menu Démarrer : `~/.config/jgmenu/jgmenurc`
 - Raccourcis / fenêtres : `~/.config/openbox/rc.xml`
-- Fond d'écran : placer une image dans `~/.config/redmond/wallpaper.jpg`
+- Fond d'écran : placer une image dans `~/.config/dejavu/wallpaper.jpg`
 - Apparence GTK : lancer `lxappearance`
 
 ## Désinstallation
@@ -77,7 +91,7 @@ Puis se déconnecter et choisir la session **Openbox** sur l'écran de connexion
 ./uninstall.sh
 ```
 
-Restaure les configurations sauvegardées (`*.redmond-backup`).
+Restaure les configurations sauvegardées (`*.dejavu-backup`).
 
 ## Marques
 

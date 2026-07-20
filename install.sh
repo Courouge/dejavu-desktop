@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Redmond Desktop — installation d'un bureau Openbox imitant Windows.
+# DejaVu Desktop — installation d'un bureau Openbox imitant Windows.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,8 +14,8 @@ PACKAGES=(
   xdg-utils x11-xserver-utils policykit-1-gnome light-locker scrot git
 )
 
-log()  { printf '\033[1;34m[redmond]\033[0m %s\n' "$*"; }
-err()  { printf '\033[1;31m[redmond]\033[0m %s\n' "$*" >&2; }
+log()  { printf '\033[1;34m[dejavu]\033[0m %s\n' "$*"; }
+err()  { printf '\033[1;31m[dejavu]\033[0m %s\n' "$*" >&2; }
 
 require_debian() {
   if ! command -v apt-get >/dev/null 2>&1; then
@@ -32,9 +32,9 @@ install_packages() {
 
 backup_and_copy() {
   local src="$1" dest="$2"
-  if [ -e "$dest" ] && [ ! -e "$dest.redmond-backup" ]; then
-    mv "$dest" "$dest.redmond-backup"
-    log "Sauvegarde : $dest -> $dest.redmond-backup"
+  if [ -e "$dest" ] && [ ! -e "$dest.dejavu-backup" ]; then
+    mv "$dest" "$dest.dejavu-backup"
+    log "Sauvegarde : $dest -> $dest.dejavu-backup"
   fi
   mkdir -p "$(dirname "$dest")"
   cp -r "$src" "$dest"
@@ -47,9 +47,9 @@ install_configs() {
   backup_and_copy "$REPO_DIR/config/jgmenu"  "$CONFIG_DIR/jgmenu"
   backup_and_copy "$REPO_DIR/config/picom.conf" "$CONFIG_DIR/picom.conf"
   chmod +x "$CONFIG_DIR/openbox/autostart"
-  mkdir -p "$CONFIG_DIR/redmond"
+  mkdir -p "$CONFIG_DIR/dejavu"
   mkdir -p "$DATA_DIR/applications"
-  cp "$REPO_DIR/assets/redmond-menu.desktop" "$DATA_DIR/applications/"
+  cp "$REPO_DIR/assets/dejavu-menu.desktop" "$DATA_DIR/applications/"
 }
 
 install_themes() {
@@ -86,7 +86,7 @@ main() {
   install_configs
   install_themes
   log "Terminé. Déconnectez-vous et choisissez la session « Openbox »."
-  log "Fond d'écran personnalisé : placez une image dans $CONFIG_DIR/redmond/wallpaper.jpg"
+  log "Fond d'écran personnalisé : placez une image dans $CONFIG_DIR/dejavu/wallpaper.jpg"
 }
 
 main "$@"

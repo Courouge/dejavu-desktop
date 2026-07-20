@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Redmond Desktop — édition familiale : KDE Plasma déguisé en Windows 11.
+# DejaVu Desktop — édition familiale : KDE Plasma déguisé en Windows 11.
 # Cible : Ubuntu 22.04+/Kubuntu/Debian 12+ avec Plasma disponible.
 # Recette validée le 2026-07-20 sur Ubuntu 24.04 (Plasma 5.27) en VM.
 set -euo pipefail
@@ -8,8 +8,8 @@ LNF_ID="com.github.yeyushengfan258.Win11OS-dark"
 ICON_THEME="Win11"
 TMPD=""
 
-log() { printf '\033[1;34m[redmond-kde]\033[0m %s\n' "$*"; }
-err() { printf '\033[1;31m[redmond-kde]\033[0m %s\n' "$*" >&2; }
+log() { printf '\033[1;34m[dejavu-kde]\033[0m %s\n' "$*"; }
+err() { printf '\033[1;31m[dejavu-kde]\033[0m %s\n' "$*" >&2; }
 cleanup() { [ -n "$TMPD" ] && rm -rf "$TMPD"; }
 trap cleanup EXIT
 
@@ -68,8 +68,8 @@ install_themes() {
     kpackagetool5 -t Plasma/Applet -u "$pkgdir"
   local wall="$TMPD/win11os/wallpaper/Win11OS-light/contents/images/3840x2400.jpg"
   if [ -f "$wall" ]; then
-    mkdir -p "$HOME/.local/share/redmond"
-    cp "$wall" "$HOME/.local/share/redmond/wallpaper.jpg"
+    mkdir -p "$HOME/.local/share/dejavu"
+    cp "$wall" "$HOME/.local/share/dejavu/wallpaper.jpg"
   fi
 }
 
@@ -79,7 +79,7 @@ install_sddm_theme() {
     log "Écran de connexion SDDM Win11…"
     sudo cp -r "$TMPD/win11os/sddm-dark/5.0/Win11OS-dark" /usr/share/sddm/themes/
     sudo mkdir -p /etc/sddm.conf.d
-    printf '[Theme]\nCurrent=Win11OS-dark\n' | sudo tee /etc/sddm.conf.d/10-redmond-theme.conf >/dev/null
+    printf '[Theme]\nCurrent=Win11OS-dark\n' | sudo tee /etc/sddm.conf.d/10-dejavu-theme.conf >/dev/null
   fi
 }
 
@@ -98,8 +98,8 @@ apply_theme() {
   "$kw" --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__svg__Win11OS-dark
   "$kw" --file kdeglobals --group KDE --key SingleClick false
   dbus-send --session --dest=org.kde.KWin /KWin org.kde.KWin.reconfigure 2>/dev/null || true
-  [ -f "$HOME/.local/share/redmond/wallpaper.jpg" ] && \
-    plasma-apply-wallpaperimage "$HOME/.local/share/redmond/wallpaper.jpg" || true
+  [ -f "$HOME/.local/share/dejavu/wallpaper.jpg" ] && \
+    plasma-apply-wallpaperimage "$HOME/.local/share/dejavu/wallpaper.jpg" || true
 }
 
 apply_panel_layout() {
@@ -140,12 +140,12 @@ if (p) {
     menu.writeConfig("icon", "start-here");
     if (tm) {
       tm.currentConfigGroup = ["General"];
-      tm.writeConfig("launchers", "REDMOND_LAUNCHERS".split(","));
+      tm.writeConfig("launchers", "DEJAVU_LAUNCHERS".split(","));
     }
     s1.index = 0; menu.index = 1; if (tm) { tm.index = 2; } s2.index = 3;
   }
 }'
-  js="${js//REDMOND_LAUNCHERS/$launchers}"
+  js="${js//DEJAVU_LAUNCHERS/$launchers}"
   dbus-send --print-reply --session --dest=org.kde.plasmashell \
     /PlasmaShell org.kde.PlasmaShell.evaluateScript string:"$js" >/dev/null || true
   # Redémarrage du shell

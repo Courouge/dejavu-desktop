@@ -1,4 +1,4 @@
-# Redmond Desktop — barre des tâches façon Windows (tint2)
+# DejaVu Desktop — barre des tâches façon Windows (tint2)
 
 # --- Fond 1 : barre (sombre, légèrement translucide)
 rounded = 0
@@ -35,7 +35,7 @@ launcher_padding = 6 4 4
 launcher_background_id = 0
 launcher_icon_theme_override = 0
 launcher_icon_size = 26
-launcher_item_app = ~/.local/share/applications/redmond-menu.desktop
+launcher_item_app = ~/.local/share/applications/dejavu-menu.desktop
 launcher_tooltip = 1
 
 #---- Taskbar
