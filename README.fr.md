@@ -30,7 +30,7 @@ L'édition Familiale transforme Plasma en quasi-Windows 11 (recette validée sur
 - décorations de fenêtres Win11, **double-clic pour ouvrir**, écrans de connexion et de verrouillage thémés
 - **bureautique incluse** : LibreOffice (fr), Okular (PDF), Gwenview (images), Ark (archives), Kate, calculatrice
 - **mises à jour automatiques** : Discover (notifications façon Windows Update) + correctifs de sécurité sans intervention
-- **noms familiers** : Dolphin devient « Explorateur de fichiers », Konsole devient « Terminal »
+- **noms familiers** : Dolphin devient « Explorateur de fichiers », Konsole « Terminal », Kate « Bloc-notes », KCalc « Calculatrice », Okular « Lecteur PDF », Gwenview « Photos », Ark « Archives »
 
 ## Prérequis matériels
 

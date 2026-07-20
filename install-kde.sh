@@ -50,10 +50,17 @@ install_updates() {
 
 rename_for_novices() {
   # Noms familiers pour les habitués de Windows (override local, système intact)
-  log "Renommage novice : Dolphin → Explorateur de fichiers, Konsole → Terminal…"
+  log "Renommage novice : Explorateur de fichiers, Terminal, Bloc-notes, Calculatrice…"
   mkdir -p "$HOME/.local/share/applications"
   local app id name src dst
-  for app in "org.kde.dolphin:Explorateur de fichiers" "org.kde.konsole:Terminal"; do
+  for app in \
+    "org.kde.dolphin:Explorateur de fichiers" \
+    "org.kde.konsole:Terminal" \
+    "org.kde.kate:Bloc-notes" \
+    "org.kde.kcalc:Calculatrice" \
+    "org.kde.okular:Lecteur PDF" \
+    "org.kde.gwenview:Photos" \
+    "org.kde.ark:Archives"; do
     id="${app%%:*}"; name="${app#*:}"
     src="/usr/share/applications/$id.desktop"
     dst="$HOME/.local/share/applications/$id.desktop"

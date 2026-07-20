@@ -30,7 +30,7 @@ The Family Edition turns Plasma into a near-Windows 11 (recipe validated on Ubun
 - Win11 window decorations, **double-click to open**, themed login and lock screens
 - **office essentials included**: LibreOffice, Okular (PDF), Gwenview (photos), Ark (archives), Kate, calculator
 - **automatic updates**: Discover (tray notifications, Windows Update-style) + unattended security upgrades
-- **familiar names**: Dolphin becomes "File Explorer", Konsole becomes "Terminal" (French labels by default)
+- **familiar names**: Dolphin becomes "File Explorer", Konsole "Terminal", Kate "Notepad", KCalc "Calculator", Okular "PDF Reader", Gwenview "Photos", Ark "Archives" (French labels by default)
 
 ## System requirements
 
